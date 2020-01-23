@@ -1,0 +1,71 @@
+<html lang="en-us">
+	<head>
+		<%- include('header'); %>
+	</head>
+	<body>
+		<div class="jumbotron" style="background-color: grey">
+			<div class="text-center">
+				<h2 class="anime">Details</h2>
+			</div>
+		</div>
+		<div class="container offset-sm-1 col-sm-10">
+			<div class="table-responsive table-bordered">
+				<table class="table table-striped table-sm" id="myTable">
+					<tbody>
+
+						<tr id="<%= Settings.Event[0]._id %>">
+							<td>Name: <b><%= Settings.Event[0].Name %></b></td>
+						</tr>
+						<tr>
+							<td>Date: <b><%= Settings.Event[0].Date %></b></td>
+						</tr>
+						<tr>
+							<td>Time: <b><%= Settings.Event[0].Time %></b></td>
+						</tr>
+						<tr>
+							<td>Price Min: <b><%= Settings.Event[0].Price_Min %></b></td>
+						</tr>
+						<tr>
+							<td>Price Max: <b><%= Settings.Event[0].Price_Max %></b></td>
+						</tr>
+						<tr>
+							<td>Venue Name: <b><%= Settings.Event[0].Venue_Name %></b></td>
+						</tr>
+						<tr>
+							<td>Venue Address: <b><%= Settings.Event[0].Venue_Address %></b></td>
+						</tr>
+						<tr>
+							<td>Venue City: <b><%= Settings.Event[0].Venue_City %></b></td>
+						</tr>
+						<tr>
+							<td>Venue State: <b><%= Settings.Event[0].Venue_State %></b></td>
+						</tr>
+						<tr>
+							<td>Venue Zip: <b><%= Settings.Event[0].Venue_Zip %></b></td>
+						</tr>
+						<tr>
+							<td>Venue Image: <b><%= Settings.Event[0].Venue_Image %>"</b></td>
+						</tr>
+						<tr>
+							<td>Event Image: <b><%= Settings.Event[0].Event_Image %></b></td>
+						</tr>
+						<tr>
+							<td>Seat Map: <b><%= Settings.Event[0].Seat_Map %></b></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<form class="form" action="/removeTicket" method="post" id="removeFromCart" hidden>
+			<input type="text" name="ticketID" id="cartticketID" value="_blank">
+		</form>
+
+
+		<script type="text/javascript">
+			function removeFromCart(id) {
+				document.getElementById('cartticketID').value = id;
+				document.getElementById('removeFromCart').submit();
+			}
+		</script>
+	</body>
+</html>

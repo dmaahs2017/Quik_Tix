@@ -1,0 +1,63 @@
+<html lang="en-us">
+	<head>
+		<%- include('header'); %>
+	</head>
+	<body>
+		<div class="jumbotron" style="background-color: grey">
+			<div class="text-center">
+				<h2 class="anime">Confirmation</h2>
+			</div>
+		</div>
+		<div class="container col-sm-12 text-center">
+			<h6>Thank you for your purchase! We sent you an email Confirmation as well!</h6>
+			<h6>Here is your Confirmation number: <b><%= Settings.Confirm %></b></h6>
+		</div>
+		<br>
+		<% var events = JSON.parse(Settings.Events) %>
+		<% var qtys = JSON.parse(Settings.Qty) %>
+		<div class="container offset-sm-1 col-sm-10">
+			<div class="table-responsive table-bordered">
+				<table class="table table-striped table-sm" id="myTable">
+					<thead class="thead-dark">
+						<tr>
+							<th width="34%" id="sportName">Name</th>
+							<th width="8%" id="sportPriceMin">Qty</th>
+							<th width="8%" id="sportPriceMin">Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<form class="form" action="/checkout" method="post" id="checkoutForm">
+						<% var total = 0 %>
+						<% for(var i=0; i < events.length; i++) { %>
+							<tr id="<%= events[i][0]._id %>">
+								<input type="text" name="ticketID" value="<%= events[i][0]._id %>" hidden>
+								<td><%= events[i][0].Name %></td>
+								<td><%= qtys[i][0] %></td>
+								<% var price = ((Number(events[i][0].Price_Min) + Number(events[i][0].Price_Max))/2) * Number(qtys[i][0]) %>
+								<% total = total + price %>
+								<td><%= price.toFixed(2) %></td>
+							</tr>
+						<% } %>
+							<tr class="bg-warning">
+								<td><b>TOTAL:</b></td>
+								<td></td>
+								<td><b><%= total.toFixed(2) %></b></td>
+							</tr>
+						</form>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<form class="form" action="/removeTicket" method="post" id="removeFromCart" hidden>
+			<input type="text" name="ticketID" id="cartticketID" value="_blank">
+		</form>
+
+
+		<script type="text/javascript">
+			function removeFromCart(id) {
+				document.getElementById('cartticketID').value = id;
+				document.getElementById('removeFromCart').submit();
+			}
+		</script>
+	</body>
+</html>
